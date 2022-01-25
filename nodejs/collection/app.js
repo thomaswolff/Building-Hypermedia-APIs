@@ -11,6 +11,7 @@ var cors = require('cors')
 var app = module.exports = express.createServer();
 
 app.use(cors())
+app.use(express.static('public'))
 
 // for couch
 var cradle = require('cradle');
@@ -75,7 +76,7 @@ app.get('/collection/tasks/;template', function (req, res) {
 
 app.get('/collection/tasks/;all', function (req, res) {
 
-  var view = '/_design/example/_view/all';
+  var view = '_design/example/_view/all';
 
   db.get(view, function (err, doc) {
     res.header('content-type', contentType);
@@ -88,7 +89,7 @@ app.get('/collection/tasks/;all', function (req, res) {
 
 app.get('/collection/tasks/;open', function (req, res) {
 
-  var view = '/_design/example/_view/open';
+  var view = '_design/example/_view/open';
 
   db.get(view, function (err, doc) {
     res.header('content-type', contentType);
@@ -101,7 +102,7 @@ app.get('/collection/tasks/;open', function (req, res) {
 
 app.get('/collection/tasks/;closed', function (req, res) {
 
-  var view = '/_design/example/_view/closed';
+  var view = '_design/example/_view/closed';
 
   db.get(view, function (err, doc) {
     res.header('content-type', contentType);
@@ -113,7 +114,6 @@ app.get('/collection/tasks/;closed', function (req, res) {
 });
 
 app.get('/collection/tasks/;date-range', function (req, res) {
-
   var d1 = (req.query['date-start'] || '');
   var d2 = (req.query['date-stop'] || '');
 
@@ -121,7 +121,7 @@ app.get('/collection/tasks/;date-range', function (req, res) {
   options.startkey = String.fromCharCode(34) + d1 + String.fromCharCode(34);
   options.endkey = String.fromCharCode(34) + d2 + String.fromCharCode(34);
 
-  var view = '/_design/example/_view/due_date';
+  var view = '_design/example/_view/due_date';
 
   db.get(view, options, function (err, doc) {
     res.header('content-type', contentType);
@@ -136,7 +136,7 @@ app.get('/collection/tasks/;date-range', function (req, res) {
 /* handle single task item */
 app.get('/collection/tasks/:i', function (req, res) {
 
-  var view = '/' + req.params.i;
+  var view = req.params.i;
 
   db.get(view, function (err, doc) {
     res.header('content-type', contentType);

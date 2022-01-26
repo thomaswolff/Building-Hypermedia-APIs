@@ -46,11 +46,12 @@ function getTemplate() {
       var data = JSON.parse(body);
       buildTask(data.collection.template);
     });
-
-    response.on('error', function (error) {
-      console.log(error);
-    });
   });
+
+  req.on('error', function (error) {
+    console.log(error);
+  });
+  
   req.end();
 }
 

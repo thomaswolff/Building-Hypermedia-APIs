@@ -156,7 +156,7 @@ var cjs = function () {
           a.setAttribute('args', escape(args));
         }
 
-        if (coll[i].rel !== 'profile' && coll[i].rel !== 'author') {
+        if (coll[i].rel !== 'profile' && coll[i].rel !== 'author' && coll[i].rel !== 'documentation') {
           a.onclick = function () { filterData(this.href, this.rel); return false; };
         }
 

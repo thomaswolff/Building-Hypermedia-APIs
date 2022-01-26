@@ -473,6 +473,6 @@ window.onload = function () {
   var c = null;
 
   c = cjs();
-  c.g.collectionUrl = 'http://localhost:3000/collection/tasks/';
+  c.g.collectionUrl = '/collection/tasks/';
   c.init();
 };

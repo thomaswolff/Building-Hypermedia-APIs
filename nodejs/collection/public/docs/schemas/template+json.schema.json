@@ -1,0 +1,87 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "collection": {
+            "type": "object",
+            "properties": {
+                "version": {
+                    "type": "string"
+                },
+                "href": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URI of the collection"
+                },
+                "links": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/components/schemas/link-item"
+                    }
+                },
+                "template": {
+                    "type": "object",
+                    "description": "Template for adding or updating items",
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/data-item"
+                            }
+                        }
+                    }
+                }
+            },
+            "required": []
+        }
+    },
+    "required": [
+        "collection"
+    ],
+    "components": {
+        "schemas": {
+            "data-item": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    },
+                    "prompt": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "link-item": {
+                "type": "object",
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    "rel": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "render": {
+                        "type": "string"
+                    },
+                    "prompt": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "href",
+                    "rel"
+                ]
+            }
+        }
+    }
+}

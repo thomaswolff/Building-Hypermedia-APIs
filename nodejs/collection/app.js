@@ -7,10 +7,8 @@
 
 // for express
 var express = require('express');
-var cors = require('cors')
 var app = module.exports = express.createServer();
 
-app.use(cors())
 app.use(express.static('public'))
 
 // for couch

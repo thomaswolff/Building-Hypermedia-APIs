@@ -73,7 +73,6 @@ app.get('/collection/tasks/;template', function (req, res) {
 });
 
 app.get('/collection/tasks/;all', function (req, res) {
-
   var view = '_design/example/_view/all';
 
   db.get(view, function (err, doc) {

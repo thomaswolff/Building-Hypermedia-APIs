@@ -34,20 +34,20 @@ else {
 function getTemplate() {
   // request the template
   var options = { method: "GET" }
-  var req = http.request(path, options, (res) => {
+  var req = http.request(path, options, (response) => {
     var body = '';
-    res.on('data', function (chunk) {
+    response.on('data', function (chunk) {
       body += chunk;
     });
-    res.on('error', function (error) {
+    response.on('error', function (error) {
       console.log(error);
     });
-    res.on('end', function () {
+    response.on('end', function () {
       var data = JSON.parse(body);
       buildTask(data.collection.template);
     });
 
-    res.on('error', function (error) {
+    response.on('error', function (error) {
       console.log(error);
     });
   });
@@ -87,15 +87,15 @@ function sendData(msg) {
     }
   }
   // pass data to the server
-  var req = http.request(path, options, (res) => {
+  var req = http.request(path, options, (response) => {
     var body = '';
-    res.on('data', function (chunk) {
+    response.on('data', function (chunk) {
       body += chunk;
     });
-    res.on('error', function (error) {
+    response.on('error', function (error) {
       console.log(error);
     });
-    res.on('end', function () {
+    response.on('end', function () {
       console.log('*** task added!');
     });
   });

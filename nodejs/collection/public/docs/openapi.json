@@ -1,0 +1,379 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Collection+JSON",
+        "description": "Example API from chapter 3 of 'Building hypermedia APIs with HTML5 and JavaScript'",
+        "version": "0.0.1"
+    },
+    "paths": {
+        "/collection/tasks/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "./schemas/collection+json.schema.json"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "operationId": "getDefaultTaskList",
+                "tags": [
+                    "Collection"
+                ]
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "template": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "array",
+                                                "items": [
+                                                    {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "description"
+                                                                ]
+                                                            },
+                                                            "value": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "dateDue"
+                                                                ]
+                                                            },
+                                                            "value": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "completed"
+                                                                ]
+                                                            },
+                                                            "value": {
+                                                                "type": "string",
+                                                                "example": "true/false"
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "302": {
+                        "description": "OK. Redirect to collection."
+                    }
+                },
+                "operationId": "createSingleTask",
+                "tags": [
+                    "Single task"
+                ]
+            }
+        },
+        "/collection/tasks/;queries": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "./schemas/queries+json.schema.json"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "operationId": "getAllQueries",
+                "tags": [
+                    "Filters"
+                ]
+            }
+        },
+        "/collection/tasks/;template": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "./schemas/template+json.schema.json"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "operationId": "getTemplate",
+                "tags": [
+                    "Filters"
+                ]
+            }
+        },
+        "/collection/tasks/;all": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "./schemas/collection+json.schema.json"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "operationId": "getAllTasks",
+                "tags": [
+                    "Filters"
+                ]
+            }
+        },
+        "/collection/tasks/;open": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "./schemas/collection+json.schema.json"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "operationId": "getOpenTasks",
+                "tags": [
+                    "Filters"
+                ]
+            }
+        },
+        "/collection/tasks/;closed": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "./schemas/collection+json.schema.json"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "operationId": "getClosedTasks",
+                "tags": [
+                    "Filters"
+                ]
+            }
+        },
+        "/collection/tasks/;date-range?date-start={date-start}&date-stop={date-stop}": {
+            "get": {
+                "parameters": [
+                    {
+                        "description": "Date as defined in [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6)",
+                        "in": "query",
+                        "name": "date-start",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        "example": "2021-11-15"
+                    },
+                    {
+                        "description": "Date as defined in [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6)",
+                        "in": "query",
+                        "name": "date-stop",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        "example": "2021-11-15"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "./schemas/collection+json.schema.json"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "operationId": "getTasksInDateRange",
+                "tags": [
+                    "Filters"
+                ]
+            }
+        },
+        "/collection/tasks/:i": {
+            "get": {
+                "parameters": [
+                    {
+                        "description": "Id of task",
+                        "in": "path",
+                        "name": "i",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "task1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "./schemas/collection+json.schema.json"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "operationId": "getSingleTask",
+                "tags": [
+                    "Single task"
+                ]
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "template": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "array",
+                                                "items": [
+                                                    {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "description"
+                                                                ]
+                                                            },
+                                                            "value": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "dateDue"
+                                                                ]
+                                                            },
+                                                            "value": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "completed"
+                                                                ]
+                                                            },
+                                                            "value": {
+                                                                "type": "string",
+                                                                "example": "true/false"
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "302": {
+                        "description": "OK. Redirect to collection."
+                    }
+                },
+                "operationId": "updateSingleTask",
+                "tags": [
+                    "Single task"
+                ]
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "description": "Id of task",
+                        "in": "path",
+                        "name": "i",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "task1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                },
+                "operationId": "deleteSingleTask",
+                "tags": [
+                    "Single task"
+                ]
+            }
+        }
+    }
+}

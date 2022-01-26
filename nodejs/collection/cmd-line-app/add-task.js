@@ -4,10 +4,10 @@
 var http = require('http');
 
 // set teh vars
-var client, host, port, path, args, help;
+var host, port, path, args, help;
 host = 'localhost';
 port = 3000;
-path = 'http://localhost:3000/collection/tasks/';
+path = 'http://' + host + ':' + port + '/collection/tasks/';
 hdrs = {};
 args = {};
 
@@ -27,7 +27,6 @@ else {
   args.dateDue = process.argv[3];
   args.completed = (process.argv[4] || false);
 
-  client = http;
   getTemplate();
 }
 
@@ -35,12 +34,7 @@ else {
 function getTemplate() {
   // request the template
   var options = { method: "GET" }
-  var req = client.request(path, options, (res) => {
-
-    if (res.statusCode !== 200) {
-      console.error("Did not get an OK from the server. Code: " + res.statusCode)
-    }
-
+  var req = http.request(path, options, (res) => {
     var body = '';
     res.on('data', function (chunk) {
       body += chunk;
@@ -88,13 +82,12 @@ function sendData(msg) {
   var options = {
     method: "POST",
     headers: {
-      'host': host + ':' + port,
       'content-type': 'application/collection+json',
       'content-length': (msg.length)
     }
   }
   // pass data to the server
-  var req = client.request(path, options, (res) => {
+  var req = http.request(path, options, (res) => {
     var body = '';
     res.on('data', function (chunk) {
       body += chunk;
